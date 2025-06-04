@@ -1,0 +1,3 @@
+#Ignorar os arquivos mencionados abaixo na hora do commit
+
+venv/
