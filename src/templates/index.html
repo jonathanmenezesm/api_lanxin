@@ -7,5 +7,11 @@
 </head>
 <body>
     <h1>Bem-vindo à Página Inicial</h1>
+
+    <div> {% include 'registrar_usuario.html' %} </div>
+
+    <div> {% include 'listar_usuarios.html' %} </div>
+
+    <script src="{{ url_for('static', filename='js/user.js') }}"></script>
 </body>
 </html>

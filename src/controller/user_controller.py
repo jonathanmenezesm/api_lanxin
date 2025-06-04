@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from database.usuarios import USERS
 
 # Criação do Blueprint para a rota user
@@ -15,37 +15,50 @@ Criação do Blueprint para a rota de usuários
 - /user/<user_id>/delete (DELETE)- Deletar usuário por ID
 '''
 
+    # listar usuários
 @user_route.route('/')
 def listar_usuarios():
-    # listar usuários
     return render_template('listar_usuarios.html', users=USERS)
 
+    # inserir usuário no servidor 
 @user_route.route('/', methods=['POST'])
 def inserir_usuario():
-    # inserir usuário no servidor (Login)
-    pass
+    
+    data = request.get_json()  
+    
+    novo_usuario = {
+        'id': len(USERS) + 1,
+        'nome': data.get('nome'),
+        'email': data.get('email')
+    }
+    USERS.append(novo_usuario)
+    return jsonify({'ok': True, 'mensagem': 'Usuário inserido com sucesso!'})
 
-@user_route.route('/new')
-def registrar_usuario():
     # formulario para criar novo usuário
+@user_route.route('/new', methods=['POST'])
+def registrar_usuario():
     return render_template('registrar_usuario.html')
 
+    # exibir detalhes do usuário
 @user_route.route('/<int:user_id>')
 def detalhar_usuario(user_id):
-    # exibir detalhes do usuário
     return render_template('detalhar_usuario.html')
 
+    # formulario para editar usuário
 @user_route.route('/<int:user_id>/edit')
 def editar_usuario(user_id):
-    # formulario para editar usuário
     return render_template('editar_usuario.html')
 
+    # atualizar informações do usuário
 @user_route.route('/<int:user_id>/update', methods=['PUT'])
 def atualizar_usuario(user_id):
-    # atualizar informações do usuário
     pass
 
 @user_route.route('/<int:user_id>/delete', methods=['DELETE'])
 def deletar_usuario(user_id):
     # deletar usuário por ID
     pass
+
+@user_route.route('/json')
+def listar_usuarios_json():
+    return jsonify(USERS)

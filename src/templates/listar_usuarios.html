@@ -11,23 +11,17 @@
     <table>
         <thead>
             <tr>
-                <th>#</th>
+                <th>ID</th>
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Ações</th>
             </tr>
         </thead>
+        <hr>
         <tbody>
             
             {% for user in users %}
-                <tr>
-                    <th scope="row"> {{ user.id }} </th>
-                    <td> {{ user.nome }} </td>
-                    <td>
-                        <button id="edit">Editar</button>
-                        <button id="delete">Deletar</button>
-                    </td>
-                </tr>
+                {% include 'item_usuarios.html' %}
             {% endfor %}
 
         </tbody>
