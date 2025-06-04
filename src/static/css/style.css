@@ -1,0 +1,19 @@
+#edit {
+    background-color: rgb(153, 153, 153);
+    cursor: pointer;
+    border: none;
+    color: black;
+    &:hover {
+        background-color: rgb(102, 102, 102);
+    }
+}
+
+#delete {
+    background-color: red;
+    cursor: pointer;
+    border: none;
+    color: white;
+    &:hover {
+        background-color: rgb(187, 0, 0);
+    }
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Listar Usuários</title>
+</head>
+<body>
+    <h1>Listar Usuários</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for user in users %}
+                <tr>
+                    <th scope="row"> {{ user.id }} </th>
+                    <td> {{ user.nome }} </td>
+                    <td>
+                        <button id="edit">Editar</button>
+                        <button id="delete">Deletar</button>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</body>
+</html>
