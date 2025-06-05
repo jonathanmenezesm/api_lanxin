@@ -1,3 +1,4 @@
+// Função para inserir usuários
 document.getElementById('inserir_usuario').addEventListener('submit', async function(e) {
     e.preventDefault(); // Impede o envio tradicional do formulário (recarregar a página)
 
@@ -52,3 +53,24 @@ async function atualizarTabelaUsuarios() {
 
 // Atualiza a tabela ao carregar a página
 window.addEventListener('DOMContentLoaded', atualizarTabelaUsuarios);
+
+// ----------------------------------------------------------------------------------------------
+
+// Função para deletar um usuário
+document.querySelector('tbody').addEventListener('click', async function(e) {
+    if (e.target.id === 'delete') {
+        const tr = e.target.closest('tr'); // Pega a linha do usuário
+        const id = tr.querySelector('th').textContent; // Pega o ID do usuário
+
+        // Envia uma requisição DELETE para o backend
+        const resposta = await fetch(`/user/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (resposta.ok) {
+            atualizarTabelaUsuarios(); // Atualiza a tabela após deletar
+        } else {
+            alert('Erro ao deletar usuário!');
+        }
+    }
+});
