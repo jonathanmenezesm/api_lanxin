@@ -19,7 +19,7 @@ Criação do Blueprint para a rota de usuários
 # listar usuários
 @user_route.route('/')
 def listar_usuarios():
-    return render_template('listar_usuarios.html', users=USERS)
+    return jsonify(USERS)
 
 # inserir usuário no servidor 
 @user_route.route('/', methods=['POST'])
@@ -50,7 +50,14 @@ def detalhar_usuario(user_id):
 # formulario para editar usuário
 @user_route.route('/<int:user_id>/edit')
 def editar_usuario(user_id):
-    return render_template('editar_usuario.html')
+    user = None
+    
+    for u in USERS:
+        if u['id'] == user_id:
+            user = u
+            break
+    
+    return render_template('registrar_usuario.html', user=user)
 
 
 # atualizar informações do usuário
@@ -63,8 +70,8 @@ def atualizar_usuario(user_id):
 @user_route.route('/<int:user_id>', methods=['DELETE'])
 def deletar_usuario(user_id):
     global USERS
-    USERS = [user for user in USERS if user['id'] != user_id]
-    return '', 204  # 204 No Content
+    USERS = [u for u in USERS if u['id'] != user_id]
+    return {'mensagem': 'Usuário deletado com sucesso!'}
 
 @user_route.route('/json')
 def listar_usuarios_json():
